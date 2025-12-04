@@ -1,0 +1,686 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Acme UI — Front-end Demo</title>
+    <meta name="description"
+        content="Acme UI — Demo page for front-end internship assignment. Clean, responsive sections: Navbar, Hero, Services, Contact, Footer." />
+    <meta name="theme-color" content="#0f172a" />
+    <!-- Tailwind Play CDN for quick prototyping (no build step) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind config: class-based dark mode + indigo brand -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f5f7ff',
+                            100: '#eceeff',
+                            500: '#4f46e5', /* indigo-600-ish */
+                            600: '#4338ca'
+                        }
+                    },
+                    boxShadow: {
+                        'soft': '0 6px 18px rgba(2,6,23,0.08)'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* focus ring helper */
+        :focus {
+            outline: 2px solid rgba(79, 70, 229, 0.12);
+            outline-offset: 3px;
+        }
+    </style>
+</head>
+
+<body class="antialiased bg-white text-slate-800 dark:bg-slate-900 dark:text-slate-100">
+    <!-- NAVBAR -->
+    <header
+        class="sticky top-0 z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Brand -->
+                <a href="#home" class="flex items-center gap-3">
+                    <svg class="h-8 w-8 text-brand-500 dark:text-indigo-400" viewBox="0 0 24 24" fill="none"
+                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="2" y="2" width="20" height="20" rx="6" fill="currentColor" />
+                        <path d="M7 12h10" stroke="white" stroke-width="1.5" stroke-linecap="round"></path>
+                    </svg>
+                    <span class="text-lg font-semibold">Acme UI</span>
+                </a>
+
+                <!-- Desktop nav -->
+                <nav class="hidden md:flex items-center gap-6" aria-label="Primary navigation">
+                    <a href="#services"
+                        class="text-slate-700 dark:text-slate-200 hover:text-brand-600 dark:hover:text-brand-300 transition">Services</a>
+                    <a href="#contact"
+                        class="text-slate-700 dark:text-slate-200 hover:text-brand-600 dark:hover:text-brand-300 transition">Contact</a>
+                    <a href="#about"
+                        class="text-slate-700 dark:text-slate-200 hover:text-brand-600 dark:hover:text-brand-300 transition">About</a>
+                    <a href="#demo"
+                        class="px-4 py-2 rounded-md bg-slate-900 text-white hover:opacity-95 transition">Demo</a>
+                </nav>
+
+                <!-- Right actions -->
+                <div class="flex items-center gap-3">
+                    <button id="themeToggle" aria-pressed="false"
+                        class="hidden md:inline-flex items-center gap-2 px-3 py-1 rounded-md border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800"
+                        aria-label="Toggle color theme">
+                        <svg id="themeIcon" class="h-5 w-5 text-slate-800 dark:text-slate-200" viewBox="0 0 24 24"
+                            fill="none">
+                            <!-- will be replaced by JS -->
+                        </svg>
+                        <span id="themeLabel" class="text-sm text-slate-800 dark:text-slate-200">Toggle</span>
+                    </button>
+
+                    <!-- Mobile menu button -->
+                    <button id="mobileMenuButton"
+                        class="md:hidden p-2 rounded-md focus-visible:ring-2 focus-visible:ring-brand-500/40 border border-transparent dark:border-transparent"
+                        aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu">
+                        <svg id="hamburgerIcon" class="h-6 w-6" viewBox="0 0 24 24" fill="none">
+                            <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="1.6"
+                                stroke-linecap="round"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div id="mobileMenu" class="md:hidden" hidden>
+            <div class="px-4 pt-3 pb-4 space-y-1">
+                <a href="#services"
+                    class="block px-3 py-2 rounded-md text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800"
+                    role="menuitem">Services</a>
+                <a href="#contact"
+                    class="block px-3 py-2 rounded-md text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800"
+                    role="menuitem">Contact</a>
+                <a href="#about"
+                    class="block px-3 py-2 rounded-md text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800"
+                    role="menuitem">About</a>
+                <a href="#demo" class="block px-3 py-2 rounded-md bg-slate-900 text-white" role="menuitem">Demo</a>
+            </div>
+        </div>
+    </header>
+
+    <main id="home" class="mt-8">
+        <!-- HERO -->
+        <section aria-labelledby="hero-heading" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid gap-8 lg:grid-cols-2 items-center">
+                <div>
+                    <p
+                        class="inline-flex items-center gap-2 text-sm font-medium bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-full mb-4 text-slate-700 dark:text-slate-200">
+                        <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none">
+                            <path d="M3 12h18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                        </svg>
+                        New — Internship UI Assignment
+                    </p>
+                    <h1 id="hero-heading"
+                        class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight">
+                        Build beautiful, responsive web sections with one reusable prompt.
+                    </h1>
+                    <p class="mt-4 text-lg text-slate-600 dark:text-slate-300 max-w-xl">
+                        A production-ready front-end skeleton demonstrating modern, accessible UI patterns (navbar,
+                        hero, services, contact form, footer). Clean code, great spacing, and responsive layout.
+                    </p>
+
+                    <div class="mt-6 flex gap-4">
+                        <a href="#contact"
+                            class="inline-flex items-center gap-3 px-5 py-3 rounded-lg bg-brand-500 text-white font-medium shadow-sm hover:opacity-95 transition">
+                            Request Demo
+                            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none">
+                                <path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="1.5"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </a>
+                        <a href="#services"
+                            class="inline-flex items-center gap-2 px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 transition">
+                            See services
+                        </a>
+                    </div>
+
+                    <div class="mt-8 text-sm text-slate-500 dark:text-slate-400">
+                        Trusted by
+                        <div class="mt-3 flex items-center gap-6">
+                            <img src="https://images.unsplash.com/photo-1502685104226-ee32379fefbe?auto=format&fit=crop&w=80&q=80"
+                                alt="client logo 1" class="h-8 w-8 rounded-full object-cover" loading="lazy">
+                            <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=80&q=80"
+                                alt="client logo 2" class="h-8 w-8 rounded-full object-cover" loading="lazy">
+                            <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?auto=format&fit=crop&w=80&h=80&q=80"
+                                alt="client logo 3" class="h-8 w-8 rounded-full object-cover" loading="lazy" />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Illustration / image -->
+                <div class="relative">
+                    <div class="rounded-2xl overflow-hidden shadow-soft border border-slate-100 dark:border-slate-800">
+                        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80"
+                            alt="Team working on UI" class="w-full h-72 object-cover sm:h-96" loading="lazy">
+                    </div>
+                    <!-- Decorative card -->
+                    <div
+                        class="absolute left-4 bottom-4 bg-white/95 dark:bg-slate-800/95 p-4 rounded-xl shadow-soft border dark:border-slate-700 w-44">
+                        <p class="text-xs text-slate-500 dark:text-slate-300">Example stat</p>
+                        <p class="mt-1 font-semibold text-slate-900 dark:text-slate-100">150+ components</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SERVICES / FEATURES -->
+        <section id="services" aria-labelledby="services-heading" class="mt-16 bg-slate-50 dark:bg-slate-800 py-12">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-2xl mx-auto">
+                    <h2 id="services-heading" class="text-2xl font-bold">What we build</h2>
+                    <p class="mt-2 text-slate-600 dark:text-slate-300">Modular, accessible components and responsive
+                        layouts — ready for production and easy to customize.</p>
+                </div>
+
+                <div class="mt-10 grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+                    <!-- Card 1 -->
+                    <article
+                        class="p-6 bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-sm">
+                        <div
+                            class="flex items-center justify-center h-12 w-12 rounded-md bg-indigo-50 dark:bg-indigo-900/20 mb-3">
+                            <svg class="h-6 w-6 text-brand-500" viewBox="0 0 24 24" fill="none">
+                                <path
+                                    d="M12 3l1.5 3L17 7l-3 1.5L12 12 10.5 8.5 7.5 7 10 6 12 3zM4 17l1.5 3L8 20l-1.5-3L4 17z"
+                                    stroke="currentColor" stroke-width="1.2" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-semibold">Design Systems</h3>
+                        <p class="mt-3 text-slate-600 dark:text-slate-300 text-sm">Reusable tokens, components and clear
+                            documentation to maintain consistent UI across products.</p>
+                    </article>
+
+                    <!-- Card 2 -->
+                    <article
+                        class="p-6 bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-sm">
+                        <div
+                            class="flex items-center justify-center h-12 w-12 rounded-md bg-indigo-50 dark:bg-indigo-900/20 mb-3">
+                            <svg class="h-6 w-6 text-brand-500" viewBox="0 0 24 24" fill="none">
+                                <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.5"
+                                    stroke-linecap="round" />
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-semibold">High-performance HTML/CSS</h3>
+                        <p class="mt-3 text-slate-600 dark:text-slate-300 text-sm">Lightweight pages that load fast and
+                            are friendly to both users and search engines.</p>
+                    </article>
+
+                    <!-- Card 3 -->
+                    <article
+                        class="p-6 bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-sm">
+                        <div
+                            class="flex items-center justify-center h-12 w-12 rounded-md bg-indigo-50 dark:bg-indigo-900/20 mb-3">
+                            <svg class="h-6 w-6 text-brand-500" viewBox="0 0 24 24" fill="none">
+                                <path d="M3 12h18M12 3v18" stroke="currentColor" stroke-width="1.5"
+                                    stroke-linecap="round" />
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-semibold">Accessible Interfaces</h3>
+                        <p class="mt-3 text-slate-600 dark:text-slate-300 text-sm">Semantic markup and ARIA where
+                            necessary — we care about keyboard + screen reader users.</p>
+                    </article>
+
+                    <!-- Card 4 -->
+                    <article
+                        class="p-6 bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-sm">
+                        <div
+                            class="flex items-center justify-center h-12 w-12 rounded-md bg-indigo-50 dark:bg-indigo-900/20 mb-3">
+                            <svg class="h-6 w-6 text-brand-500" viewBox="0 0 24 24" fill="none">
+                                <path d="M4 6h16v12H4z" stroke="currentColor" stroke-width="1.2"
+                                    stroke-linecap="round" />
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-semibold">Forms & Validation</h3>
+                        <p class="mt-3 text-slate-600 dark:text-slate-300 text-sm">Robust forms with validation, subtle
+                            UX cues, and anti-spam measures.</p>
+                    </article>
+
+                    <!-- Card 5 -->
+                    <article
+                        class="p-6 bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-sm">
+                        <div
+                            class="flex items-center justify-center h-12 w-12 rounded-md bg-indigo-50 dark:bg-indigo-900/20 mb-3">
+                            <svg class="h-6 w-6 text-brand-500" viewBox="0 0 24 24" fill="none">
+                                <path d="M12 20l9-7-9-7-9 7 9 7z" stroke="currentColor" stroke-width="1.2" />
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-semibold">SEO & Performance</h3>
+                        <p class="mt-3 text-slate-600 dark:text-slate-300 text-sm">Optimized markup and images — built
+                            for real-world SEO signals and fast load times.</p>
+                    </article>
+
+                    <!-- Card 6 -->
+                    <article
+                        class="p-6 bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-sm">
+                        <div
+                            class="flex items-center justify-center h-12 w-12 rounded-md bg-indigo-50 dark:bg-indigo-900/20 mb-3">
+                            <svg class="h-6 w-6 text-brand-500" viewBox="0 0 24 24" fill="none">
+                                <path d="M12 2l3 7h7l-5.5 4.2L20 22l-8-5-8 5 1.5-8.8L0 9h7l3-7z" stroke="currentColor"
+                                    stroke-width="1.2" />
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-semibold">Component Libraries</h3>
+                        <p class="mt-3 text-slate-600 dark:text-slate-300 text-sm">Build your product faster with
+                            well-tested components and utilities.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABOUT (placeholder so #about exists) -->
+        <section id="about" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-16">
+            <div
+                class="bg-white dark:bg-slate-900 p-8 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm">
+                <h2 class="text-xl font-bold">About</h2>
+                <p class="mt-3 text-slate-600 dark:text-slate-300">This is a sample page generated to satisfy the
+                    front-end internship assignment. The layout is modular and ready to customize.</p>
+            </div>
+        </section>
+
+        <!-- CONTACT / LEAD FORM -->
+        <section id="contact" aria-labelledby="contact-heading"
+            class="mt-16 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                <div
+                    class="bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-800 p-8 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm">
+                    <h2 id="contact-heading" class="text-2xl font-bold">Start a project</h2>
+                    <p class="mt-2 text-slate-600 dark:text-slate-300">Share a few details and we’ll reach out within 1
+                        business day. This form includes basic validation and a bot honeypot.</p>
+
+                    <form id="leadForm" class="mt-6 space-y-4" novalidate>
+                        <!-- Honeypot (hidden from users) -->
+                        <div style="display:none" aria-hidden="true">
+                            <label>Leave empty</label>
+                            <input type="text" name="website" autocomplete="off" tabindex="-1">
+                        </div>
+
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-slate-700 dark:text-slate-200">Full
+                                name</label>
+                            <input id="name" name="name" type="text" required
+                                class="mt-1 block w-full rounded-md border px-3 py-2 focus:ring-2 focus:ring-brand-500/30 bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700"
+                                placeholder="Jane Doe">
+                            <p class="mt-1 text-xs text-red-600 hidden" id="nameError">Please provide your name.</p>
+                        </div>
+
+                        <div>
+                            <label for="email"
+                                class="block text-sm font-medium text-slate-700 dark:text-slate-200">Email</label>
+                            <input id="email" name="email" type="email" required
+                                class="mt-1 block w-full rounded-md border px-3 py-2 focus:ring-2 focus:ring-brand-500/30 bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700"
+                                placeholder="you@company.com">
+                            <p class="mt-1 text-xs text-red-600 hidden" id="emailError">Please provide a valid email.
+                            </p>
+                        </div>
+
+                        <div>
+                            <label for="company"
+                                class="block text-sm font-medium text-slate-700 dark:text-slate-200">Company
+                                (optional)</label>
+                            <input id="company" name="company" type="text"
+                                class="mt-1 block w-full rounded-md border px-3 py-2 focus:ring-2 focus:ring-brand-500/30 bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700"
+                                placeholder="Acme Inc.">
+                        </div>
+
+                        <div>
+                            <label for="message"
+                                class="block text-sm font-medium text-slate-700 dark:text-slate-200">Project
+                                details</label>
+                            <textarea id="message" name="message" rows="4" required
+                                class="mt-1 block w-full rounded-md border px-3 py-2 focus:ring-2 focus:ring-brand-500/30 bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700"
+                                placeholder="Describe your project or ask a question"></textarea>
+                            <p class="mt-1 text-xs text-red-600 hidden" id="messageError">Tell us a little about your
+                                project.</p>
+                        </div>
+
+                        <div class="flex items-center gap-4">
+                            <button type="submit"
+                                class="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-brand-500 text-white font-medium">Send
+                                request</button>
+                            <button type="button" id="saveDraft"
+                                class="px-3 py-2 rounded-md border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900">Save
+                                draft</button>
+                            <span id="formStatus" class="text-sm text-slate-600 dark:text-slate-300"></span>
+                        </div>
+
+                        <p class="mt-2 text-xs text-slate-500 dark:text-slate-400">We respect your privacy — your data
+                            will only be used to contact you about this request.</p>
+                    </form>
+                </div>
+
+                <!-- Contact card -->
+                <aside
+                    class="p-8 bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm">
+                    <h3 class="text-lg font-semibold">Contact information</h3>
+                    <p class="mt-2 text-slate-600 dark:text-slate-300">Prefer email? Send a message to <a
+                            href="mailto:hello@acme.example" class="text-brand-500">hello@acme.example</a> or call <a
+                            href="tel:+11234567890" class="text-brand-500">+1 (123) 456-7890</a>.</p>
+
+                    <dl class="mt-6 grid grid-cols-1 gap-4">
+                        <div>
+                            <dt class="text-xs text-slate-500 dark:text-slate-400">Headquarters</dt>
+                            <dd class="text-sm">Mumbai, India</dd>
+                        </div>
+                        <div>
+                            <dt class="text-xs text-slate-500 dark:text-slate-400">Working hours</dt>
+                            <dd class="text-sm">Mon–Fri, 9am–6pm IST</dd>
+                        </div>
+                    </dl>
+
+                    <div class="mt-6">
+                        <p class="text-xs text-slate-500 dark:text-slate-400">Or find us on</p>
+                        <div class="mt-3 flex items-center gap-3">
+                            <a href="#" aria-label="Twitter"
+                                class="p-2 rounded-full border border-slate-200 dark:border-slate-700"><svg
+                                    class="h-4 w-4" viewBox="0 0 24 24" fill="none">
+                                    <path
+                                        d="M23 3a10 10 0 01-3 1 4 4 0 00-7 3v1A10 10 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"
+                                        stroke="currentColor" stroke-width="1.2" />
+                                </svg></a>
+                            <a href="#" aria-label="LinkedIn"
+                                class="p-2 rounded-full border border-slate-200 dark:border-slate-700"><svg
+                                    class="h-4 w-4" viewBox="0 0 24 24" fill="none">
+                                    <path d="M16 8a6 6 0 016 6v6h-4v-6a2 2 0 00-2-2 2 2 0 00-2 2v6h-4V8h4v1"
+                                        stroke="currentColor" stroke-width="1.2" />
+                                </svg></a>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </section>
+
+        <!-- DEMO placeholder (so #demo exists) -->
+        <section id="demo" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 mb-20">
+            <div
+                class="bg-white dark:bg-slate-900 p-8 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm">
+                <h2 class="text-xl font-bold">Demo</h2>
+                <p class="mt-3 text-slate-600 dark:text-slate-300">Interact with the components: try the mobile menu,
+                    toggle dark mode, save a draft, submit the form (saved locally).</p>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="bg-slate-900 text-white py-12 mt-10">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <a href="#home" class="flex items-center gap-3">
+                        <svg class="h-8 w-8 text-white/90" viewBox="0 0 24 24" fill="none">
+                            <rect x="2" y="2" width="20" height="20" rx="6" fill="currentColor" />
+                        </svg>
+                        <span class="font-semibold">Acme UI</span>
+                    </a>
+                    <p class="mt-3 text-sm text-white/70">Made with care for front-end interns. Use the prompts in the
+                        documentation to reproduce this layout.</p>
+                </div>
+
+                <nav aria-label="Footer Links" class="flex gap-8">
+                    <div>
+                        <h4 class="text-sm font-semibold mb-2">Product</h4>
+                        <ul class="space-y-1 text-sm text-white/80">
+                            <li><a href="#services" class="hover:text-white">Features</a></li>
+                            <li><a href="#demo" class="hover:text-white">Demo</a></li>
+                            <li><a href="#contact" class="hover:text-white">Pricing</a></li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4 class="text-sm font-semibold mb-2">Company</h4>
+                        <ul class="space-y-1 text-sm text-white/80">
+                            <li><a href="#about" class="hover:text-white">About</a></li>
+                            <li><a href="#" class="hover:text-white">Careers</a></li>
+                            <li><a href="#" class="hover:text-white">Contact</a></li>
+                        </ul>
+                    </div>
+                </nav>
+
+                <div>
+                    <h4 class="text-sm font-semibold mb-2">Legal</h4>
+                    <ul class="space-y-1 text-sm text-white/80">
+                        <li><a href="#" class="hover:text-white">Privacy</a></li>
+                        <li><a href="#" class="hover:text-white">Terms</a></li>
+                        <li><a href="#" class="hover:text-white">Status</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mt-8 border-t border-white/10 pt-6 text-center text-sm text-white/70">
+                © <span id="year"></span> Acme UI. All rights reserved.
+            </div>
+        </footer>
+    </main>
+
+    <!-- Success toast (hidden) -->
+    <div id="toast" role="status" aria-live="polite"
+        class="fixed right-6 bottom-6 hidden p-4 bg-white rounded-lg shadow-soft border dark:bg-slate-800 dark:border-slate-700">
+        <p id="toastMessage" class="text-sm text-slate-800 dark:text-slate-200">Message sent</p>
+    </div>
+
+    <!-- Minimal JS for interactive functionality (clean and defensive) -->
+    <script>
+        // Utility helpers
+        const $ = (sel) => document.querySelector(sel);
+        const $$ = (sel) => Array.from(document.querySelectorAll(sel));
+
+        // Set current year
+        const yearEl = $('#year');
+        if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+        // Mobile menu toggle
+        const mobileButton = $('#mobileMenuButton');
+        const mobileMenu = $('#mobileMenu');
+        if (mobileButton && mobileMenu) {
+            mobileButton.addEventListener('click', () => {
+                const expanded = mobileButton.getAttribute('aria-expanded') === 'true';
+                mobileButton.setAttribute('aria-expanded', String(!expanded));
+                if (mobileMenu.hasAttribute('hidden')) {
+                    mobileMenu.removeAttribute('hidden');
+                } else {
+                    mobileMenu.setAttribute('hidden', '');
+                }
+            });
+
+            // Close mobile menu when a link is clicked
+            mobileMenu.addEventListener('click', (e) => {
+                const target = e.target.closest('a');
+                if (target && !mobileMenu.hasAttribute('hidden')) {
+                    mobileMenu.setAttribute('hidden', '');
+                    mobileButton.setAttribute('aria-expanded', 'false');
+                }
+            });
+        }
+
+        // Theme toggle: class-based dark mode on <html>
+        const themeToggle = $('#themeToggle');
+        const themeIcon = $('#themeIcon');
+        const themeLabel = $('#themeLabel');
+        const root = document.documentElement;
+        const THEME_KEY = 'acme_theme'; // key in localStorage
+
+        const renderThemeIcon = (mode) => {
+            // light: show moon icon (meaning click -> dark)
+            // dark: show sun icon (click -> light)
+            if (!themeIcon || !themeLabel) return;
+            if (mode === 'dark') {
+                themeIcon.innerHTML = `<path d="M12 3v2m0 14v2m9-11h-2M5 12H3m14.95 6.95l-1.41-1.41M6.46 6.46L5.05 5.05M18.36 5.64l-1.41 1.41M7.05 18.36l-1.41-1.41" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>`;
+                themeLabel.textContent = 'Light';
+            } else {
+                themeIcon.innerHTML = `<path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>`;
+                themeLabel.textContent = 'Dark';
+            }
+        };
+
+        const applyTheme = (theme) => {
+            if (theme === 'dark') {
+                root.classList.add('dark');
+                if (themeToggle) themeToggle.setAttribute('aria-pressed', 'true');
+            } else {
+                root.classList.remove('dark');
+                if (themeToggle) themeToggle.setAttribute('aria-pressed', 'false');
+            }
+            renderThemeIcon(theme);
+        };
+
+        // Initialize theme from localStorage or system preference
+        (function initTheme() {
+            try {
+                const stored = localStorage.getItem(THEME_KEY);
+                if (stored === 'dark' || stored === 'light') {
+                    applyTheme(stored);
+                } else {
+                    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+                    applyTheme(prefersDark ? 'dark' : 'light');
+                }
+            } catch (err) {
+                applyTheme('light');
+            }
+        })();
+
+        if (themeToggle) {
+            themeToggle.addEventListener('click', () => {
+                const isDark = root.classList.contains('dark');
+                const next = isDark ? 'light' : 'dark';
+                applyTheme(next);
+                try { localStorage.setItem(THEME_KEY, next); } catch (e) { /* ignore */ }
+            });
+        }
+
+        // Simple toast utility
+        const toast = $('#toast');
+        const toastMessage = $('#toastMessage');
+        function showToast(msg, ms = 3200) {
+            if (!toast || !toastMessage) return;
+            toastMessage.textContent = msg;
+            toast.classList.remove('hidden');
+            clearTimeout(toast._t);
+            toast._t = setTimeout(() => toast.classList.add('hidden'), ms);
+        }
+
+        // Simple client-side validation and form handling (defensive)
+        const form = $('#leadForm');
+        if (form) {
+            const nameEl = $('#name');
+            const emailEl = $('#email');
+            const messageEl = $('#message');
+            const companyEl = $('#company');
+            const formStatus = $('#formStatus');
+
+            function validateEmail(email) {
+                return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+            }
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                // Honeypot
+                const honeypot = form.querySelector('input[name="website"]');
+                if (honeypot && honeypot.value.trim() !== '') {
+                    showToast('Spam detected — request blocked.');
+                    return;
+                }
+
+                // Reset errors
+                const nameError = $('#nameError');
+                const emailError = $('#emailError');
+                const messageError = $('#messageError');
+                if (nameError) nameError.classList.add('hidden');
+                if (emailError) emailError.classList.add('hidden');
+                if (messageError) messageError.classList.add('hidden');
+
+                let valid = true;
+                if (!nameEl.value.trim()) {
+                    if (nameError) nameError.classList.remove('hidden');
+                    valid = false;
+                }
+                if (!validateEmail(emailEl.value.trim())) {
+                    if (emailError) emailError.classList.remove('hidden');
+                    valid = false;
+                }
+                if (!messageEl.value.trim()) {
+                    if (messageError) messageError.classList.remove('hidden');
+                    valid = false;
+                }
+
+                if (!valid) {
+                    if (formStatus) formStatus.textContent = 'Please fix the errors above.';
+                    return;
+                }
+
+                if (formStatus) formStatus.textContent = 'Sending…';
+                setTimeout(() => {
+                    const lead = {
+                        name: nameEl.value.trim(),
+                        email: emailEl.value.trim(),
+                        company: companyEl.value.trim(),
+                        message: messageEl.value.trim(),
+                        submittedAt: new Date().toISOString()
+                    };
+                    try {
+                        const leads = JSON.parse(localStorage.getItem('leads_demo') || '[]');
+                        leads.unshift(lead);
+                        localStorage.setItem('leads_demo', JSON.stringify(leads.slice(0, 10)));
+                    } catch (err) { /* ignore storage errors */ }
+
+                    form.reset();
+                    if (formStatus) formStatus.textContent = 'Thanks — we will contact you soon.';
+                    showToast('Request saved — check your inbox soon!');
+                }, 900);
+            });
+
+            // Save draft
+            const saveDraftBtn = $('#saveDraft');
+            if (saveDraftBtn) {
+                saveDraftBtn.addEventListener('click', () => {
+                    try {
+                        const draft = {
+                            name: nameEl.value || '',
+                            email: emailEl.value || '',
+                            company: companyEl.value || '',
+                            message: messageEl.value || ''
+                        };
+                        localStorage.setItem('lead_draft', JSON.stringify(draft));
+                        showToast('Draft saved locally.');
+                    } catch (err) {
+                        showToast('Could not save draft.');
+                    }
+                });
+            }
+
+            // Populate draft on load
+            try {
+                const raw = localStorage.getItem('lead_draft');
+                if (raw) {
+                    const draft = JSON.parse(raw);
+                    if (draft.name) nameEl.value = draft.name;
+                    if (draft.email) emailEl.value = draft.email;
+                    if (draft.company) companyEl.value = draft.company;
+                    if (draft.message) messageEl.value = draft.message;
+                }
+            } catch (err) { /* ignore */ }
+        }
+
+        // Close mobile menu on Escape
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                if (mobileMenu && !mobileMenu.hasAttribute('hidden')) {
+                    mobileMenu.setAttribute('hidden', '');
+                    if (mobileButton) mobileButton.setAttribute('aria-expanded', 'false');
+                }
+            }
+        });
+
+        // Accessibility: focus trap improvements could be added later
+    </script>
+</body>
+
+</html>
