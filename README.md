@@ -1,5 +1,3 @@
-# Acme UI (Front-End Prompt Engineering Assignment)**
-
 ## Acme UI — Front-End Prompt Engineering Assignment
 
 This repository contains my complete submission for the **Front-End Development Intern – Prompt Engineering Assignment**.
@@ -282,4 +280,5 @@ Your live link appears automatically.
 Front-End Developer • UI Engineer
 Email: [asthapitambarwale@gmail.com](asthapitambarwale@gmail.com)
 GitHub: [https://github.com/AsthaPitambarwale](https://github.com/AsthaPitambarwale)
+
 
