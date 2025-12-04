@@ -101,14 +101,6 @@ acme-ui/
 └── screenshots/      # (optional) UI previews for the repo
 ```
 
-## 🖼 Screenshots (Add your own)
-
-```
-![Hero Section](screenshots/hero.png)
-![Services Section](screenshots/services.png)
-![Contact Form](screenshots/contact.png)
-```
-
 ---
 
 # 🧠 Prompt Engineering Deliverables
@@ -280,5 +272,6 @@ Your live link appears automatically.
 Front-End Developer • UI Engineer
 Email: [asthapitambarwale@gmail.com](asthapitambarwale@gmail.com)
 GitHub: [https://github.com/AsthaPitambarwale](https://github.com/AsthaPitambarwale)
+
 
 
